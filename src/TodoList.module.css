@@ -1,0 +1,25 @@
+.checkBoxForNewInput {
+    width: 17px;
+    height: 17px;
+    text-align: center;
+    vertical-align: middle;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.colorForError {
+    font-size: 12px;
+    color: red;
+}
+
+.borderColorForError {
+    border: 1px solid red;
+}
+
+.filterForTasks {
+    background: aquamarine;
+}
+
+.completedTask {
+    opacity: 0.5;
+}
