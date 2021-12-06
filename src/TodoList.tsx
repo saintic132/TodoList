@@ -64,7 +64,7 @@ function TodoList(props: TodoListType) {
             <h3>{props.title}</h3>
             <div>
                 <input value={inputValue} onChange={HandlerInputValue}
-                       className={error || doubleTaskError ? s.borderColorForError : ''}/>
+                       className={error ? s.borderColorForError : '' || doubleTaskError ? s.borderColorForError && s.textForDoubleTask : ''}/>
                 <input type="checkbox" className={s.checkBoxForNewInput} checked={inputCheckStatusValue}
                        onChange={HandlerCheckInputValue}/>
                 <button onClick={addNewTask}>+</button>
