@@ -1,4 +1,5 @@
 import React from "react";
+import s from './TodoList.module.css'
 
 type TaskType = {
     id: string
@@ -32,7 +33,7 @@ function TodoList(props: TodoListType) {
                             <li key={t.id}>
                                 <input type="checkbox" checked={t.isDone}/>
                                 <span>{t.title}</span>
-                                <button onClick={onClickRemoveTaskFromTodolist}>x</button>
+                                <button className={s.marginToRemoveTaskButton} onClick={onClickRemoveTaskFromTodolist}>x</button>
                             </li>
                         )
                     })
