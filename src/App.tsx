@@ -1,15 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
-import {v1} from "uuid";
 
 function App() {
-
-    let [tasks, setTasks] = useState([
-        {id: v1(), title: 'HTML', isDone: true},
-        {id: v1(), title: 'CSS', isDone: true},
-        {id: v1(), title: 'React', isDone: true}
-    ]);
-
     return (
         <div className="App">
             <div>
