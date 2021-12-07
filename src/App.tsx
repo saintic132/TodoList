@@ -12,9 +12,9 @@ function App() {
     ]);
 
     return (
-
         <TodoList
             title='What to learn'
+            tasks={tasks}
         />
     );
 }
