@@ -9,6 +9,7 @@ type TaskType = {
 type TodoListType = {
     title: string
     tasks: Array<TaskType>
+    removeTaskFromTasks: (id: string) => void
 }
 
 function TodoList(props: TodoListType) {
@@ -22,8 +23,17 @@ function TodoList(props: TodoListType) {
             <ul>
                 {
                     props.tasks.map(t => {
+
+                        const onClickRemoveTaskFromTodolist = () => {
+                            props.removeTaskFromTasks(t.id)
+                        }
+
                         return (
-                            <li key={t.id}><input type="checkbox" checked={t.isDone}/><span>{t.title}</span></li>
+                            <li key={t.id}>
+                                <input type="checkbox" checked={t.isDone}/>
+                                <span>{t.title}</span>
+                                <button onClick={onClickRemoveTaskFromTodolist}>x</button>
+                            </li>
                         )
                     })
                 }

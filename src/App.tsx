@@ -11,10 +11,16 @@ function App() {
         {id: v1(), title: 'React', isDone: false},
     ]);
 
+    const removeTaskFromTasks = (id: string) => {
+        let task = tasks.filter(el => el.id !== id)
+        setTasks([...task])
+    }
+
     return (
         <TodoList
             title='What to learn'
             tasks={tasks}
+            removeTaskFromTasks={removeTaskFromTasks}
         />
     );
 }
