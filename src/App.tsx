@@ -12,9 +12,10 @@ function App() {
     ]);
 
     return (
-        <div className="App">
-            <TodoList />
-        </div>
+
+        <TodoList
+            title='What to learn'
+        />
     );
 }
 
