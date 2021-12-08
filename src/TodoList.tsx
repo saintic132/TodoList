@@ -13,17 +13,19 @@ type TodoListType = {
     tasks: Array<TaskType>
     removeTaskFromTasks: (id: string) => void
     setFilter: (fl: FilterType) => void
-    addNewTask: (title: string) => void
+    addNewTask: (title: string, newStatus: boolean) => void
 }
 
 function TodoList(props: TodoListType) {
 
     let [inputNewValue, setInputNewValue] = useState('');
+    let [newStatusValue, setNewStatusValue] = useState<boolean>(false);
 
     const addTask = () => {
         if (inputNewValue.trim()) {
-            props.addNewTask(inputNewValue)
+            props.addNewTask(inputNewValue, newStatusValue)
             setInputNewValue('')
+            setNewStatusValue(false)
         }
     }
 
@@ -39,13 +41,16 @@ function TodoList(props: TodoListType) {
     const onChangeHandlerInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputNewValue(e.currentTarget.value)
     }
+    const onClickHandlerChangeNewStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setNewStatusValue(e.currentTarget.checked)
+    }
 
     return (
         <div>
             <h3>{props.title}</h3>
             <div>
                 <input value={inputNewValue} onChange={onChangeHandlerInputValue}/>
-                <input type="checkbox"/>
+                <input className={s.checkBoxForNewInput} type="checkbox" checked={newStatusValue} onChange={onClickHandlerChangeNewStatus}/>
                 <button onClick={addTask}>+</button>
             </div>
             <ul>
