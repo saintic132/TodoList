@@ -23,3 +23,7 @@
 .filterForTasks {
     background: aquamarine;
 }
+
+.completedTask {
+    opacity: 0.5;
+}

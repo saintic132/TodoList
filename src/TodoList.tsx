@@ -82,7 +82,7 @@ function TodoList(props: TodoListType) {
 
 
                         return (
-                            <li key={t.id}>
+                            <li key={t.id} className={t.isDone ? s.completedTask : ''}>
                                 <input type="checkbox" checked={t.isDone} onClick={onClickChangeStatusForTask}/>
                                 <span>{t.title}</span>
                                 <button className={s.marginToRemoveTaskButton}
