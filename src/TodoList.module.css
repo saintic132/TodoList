@@ -19,3 +19,7 @@
 .borderColorForError {
     border: 1px solid red;
 }
+
+.filterForTasks {
+    background: aquamarine;
+}

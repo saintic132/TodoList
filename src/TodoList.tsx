@@ -12,6 +12,7 @@ type TodoListType = {
     title: string
     tasks: Array<TaskType>
     removeTaskFromTasks: (id: string) => void
+    filter: FilterType
     setFilter: (fl: FilterType) => void
     addNewTask: (title: string, newStatus: boolean) => void
     changeStatusTask: (id: string, status: boolean) => void
@@ -93,9 +94,9 @@ function TodoList(props: TodoListType) {
                 }
             </ul>
             <div>
-                <button onClick={onClickSetFilterToAll}>All</button>
-                <button onClick={onClickSetFilterToActive}>Active</button>
-                <button onClick={onClickSetFilterToCompleted}>Completed</button>
+                <button className={props.filter=== 'all' ? s.filterForTasks : ''} onClick={onClickSetFilterToAll}>All</button>
+                <button className={props.filter=== 'active' ? s.filterForTasks : ''} onClick={onClickSetFilterToActive}>Active</button>
+                <button className={props.filter=== 'completed' ? s.filterForTasks : ''} onClick={onClickSetFilterToCompleted}>Completed</button>
             </div>
         </div>
     )

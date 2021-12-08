@@ -44,6 +44,7 @@ function App() {
             title='What to learn'
             tasks={filteredTasks}
             removeTaskFromTasks={removeTaskFromTasks}
+            filter={filter}
             setFilter={setFilter}
             addNewTask={addNewTask}
             changeStatusTask={changeStatusTask}
