@@ -21,6 +21,7 @@ function TodoList(props: TodoListType) {
 
     let [inputNewValue, setInputNewValue] = useState('');
     let [newStatusValue, setNewStatusValue] = useState<boolean>(false);
+    let [inputError, setInputError] = useState<string | null>('');
     let [errorDoubleTask, setErrorDoubleTask] = useState<string | null>('');
 
     const addTask = () => {
@@ -34,6 +35,8 @@ function TodoList(props: TodoListType) {
                 setNewStatusValue(false)
                 setErrorDoubleTask(null)
             }
+        } else {
+            setInputError('Enter value')
         }
     }
     const onClickSetFilterToAll = () => {
@@ -46,6 +49,7 @@ function TodoList(props: TodoListType) {
         props.setFilter('completed')
     }
     const onChangeHandlerInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInputError(null)
         setErrorDoubleTask(null)
         setInputNewValue(e.currentTarget.value)
     }
@@ -61,6 +65,7 @@ function TodoList(props: TodoListType) {
                 <input className={s.checkBoxForNewInput} type="checkbox" checked={newStatusValue}
                        onChange={onClickHandlerChangeNewStatus}/>
                 <button onClick={addTask}>+</button>
+                {inputError && <div>{inputError}</div>}
                 {errorDoubleTask && <div>{errorDoubleTask}</div>}
             </div>
             <ul>
