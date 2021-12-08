@@ -27,10 +27,16 @@ function App() {
         let newTask = {id: v1(), title: newTitle, isDone: newStatus}
         setTasks([newTask, ...tasks])
     }
-
     const removeTaskFromTasks = (id: string) => {
         let task = tasks.filter(el => el.id !== id)
         setTasks([...task])
+    }
+    const changeStatusTask = (id: string, status: boolean) => {
+        let task = tasks.find(el => el.id === id)
+        if (task) {
+            task.isDone = status
+            setTasks([...tasks])
+        }
     }
 
     return (
@@ -40,6 +46,7 @@ function App() {
             removeTaskFromTasks={removeTaskFromTasks}
             setFilter={setFilter}
             addNewTask={addNewTask}
+            changeStatusTask={changeStatusTask}
         />
     );
 }

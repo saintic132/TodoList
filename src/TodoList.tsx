@@ -14,6 +14,7 @@ type TodoListType = {
     removeTaskFromTasks: (id: string) => void
     setFilter: (fl: FilterType) => void
     addNewTask: (title: string, newStatus: boolean) => void
+    changeStatusTask: (id: string, status: boolean) => void
 }
 
 function TodoList(props: TodoListType) {
@@ -28,7 +29,6 @@ function TodoList(props: TodoListType) {
             setNewStatusValue(false)
         }
     }
-
     const onClickSetFilterToAll = () => {
         props.setFilter('all')
     }
@@ -50,7 +50,8 @@ function TodoList(props: TodoListType) {
             <h3>{props.title}</h3>
             <div>
                 <input value={inputNewValue} onChange={onChangeHandlerInputValue}/>
-                <input className={s.checkBoxForNewInput} type="checkbox" checked={newStatusValue} onChange={onClickHandlerChangeNewStatus}/>
+                <input className={s.checkBoxForNewInput} type="checkbox" checked={newStatusValue}
+                       onChange={onClickHandlerChangeNewStatus}/>
                 <button onClick={addTask}>+</button>
             </div>
             <ul>
@@ -60,12 +61,18 @@ function TodoList(props: TodoListType) {
                         const onClickRemoveTaskFromTodolist = () => {
                             props.removeTaskFromTasks(t.id)
                         }
+                        const onClickChangeStatusForTask = (e: React.MouseEvent<HTMLInputElement>) => {
+                            props.changeStatusTask(t.id, e.currentTarget.checked)
+                        }
+
 
                         return (
                             <li key={t.id}>
-                                <input type="checkbox" checked={t.isDone}/>
+                                <input type="checkbox" checked={t.isDone} onClick={onClickChangeStatusForTask}/>
                                 <span>{t.title}</span>
-                                <button className={s.marginToRemoveTaskButton} onClick={onClickRemoveTaskFromTodolist}>x</button>
+                                <button className={s.marginToRemoveTaskButton}
+                                        onClick={onClickRemoveTaskFromTodolist}>x
+                                </button>
                             </li>
                         )
                     })
