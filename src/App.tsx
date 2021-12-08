@@ -23,6 +23,11 @@ function App() {
         filteredTasks = filteredTasks.filter(el => el.isDone)
     }
 
+    const addNewTask = (title: string) => {
+        let newTask = {id: v1(), title: title, isDone: true}
+        setTasks([newTask, ...tasks])
+    }
+
     const removeTaskFromTasks = (id: string) => {
         let task = tasks.filter(el => el.id !== id)
         setTasks([...task])
@@ -34,6 +39,7 @@ function App() {
             tasks={filteredTasks}
             removeTaskFromTasks={removeTaskFromTasks}
             setFilter={setFilter}
+            addNewTask={addNewTask}
         />
     );
 }

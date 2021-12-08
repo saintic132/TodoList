@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import s from './TodoList.module.css'
 import {FilterType} from "./App";
 
@@ -13,9 +13,19 @@ type TodoListType = {
     tasks: Array<TaskType>
     removeTaskFromTasks: (id: string) => void
     setFilter: (fl: FilterType) => void
+    addNewTask: (title: string) => void
 }
 
 function TodoList(props: TodoListType) {
+
+    let [inputNewValue, setInputNewValue] = useState('');
+
+    const addTask = () => {
+        if (inputNewValue.trim()) {
+            props.addNewTask(inputNewValue)
+            setInputNewValue('')
+        }
+    }
 
     const onClickSetFilterToAll = () => {
         props.setFilter('all')
@@ -26,13 +36,16 @@ function TodoList(props: TodoListType) {
     const onClickSetFilterToCompleted = () => {
         props.setFilter('completed')
     }
+    const onChangeHandlerInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInputNewValue(e.currentTarget.value)
+    }
 
     return (
         <div>
             <h3>{props.title}</h3>
             <div>
-                <input/>
-                <button>+</button>
+                <input value={inputNewValue} onChange={onChangeHandlerInputValue}/>
+                <button onClick={addTask}>+</button>
             </div>
             <ul>
                 {
