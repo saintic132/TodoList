@@ -59,7 +59,7 @@ function TodoList(props: TodoListType) {
     }
 
     return (
-        <div>
+        <div className={s.styleForTodolist}>
             <h3>{props.title}</h3>
             <div>
                 <input className={inputError || errorDoubleTask ? s.borderColorForError : ''} value={inputNewValue} onChange={onChangeHandlerInputValue}/>
