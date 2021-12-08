@@ -45,6 +45,7 @@ function TodoList(props: TodoListType) {
             <h3>{props.title}</h3>
             <div>
                 <input value={inputNewValue} onChange={onChangeHandlerInputValue}/>
+                <input type="checkbox"/>
                 <button onClick={addTask}>+</button>
             </div>
             <ul>
