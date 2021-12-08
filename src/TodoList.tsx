@@ -1,5 +1,6 @@
 import React from "react";
 import s from './TodoList.module.css'
+import {FilterType} from "./App";
 
 type TaskType = {
     id: string
@@ -11,9 +12,21 @@ type TodoListType = {
     title: string
     tasks: Array<TaskType>
     removeTaskFromTasks: (id: string) => void
+    setFilter: (fl: FilterType) => void
 }
 
 function TodoList(props: TodoListType) {
+
+    const onClickSetFilterToAll = () => {
+        props.setFilter('all')
+    }
+    const onClickSetFilterToActive = () => {
+        props.setFilter('active')
+    }
+    const onClickSetFilterToCompleted = () => {
+        props.setFilter('completed')
+    }
+
     return (
         <div>
             <h3>{props.title}</h3>
@@ -40,9 +53,9 @@ function TodoList(props: TodoListType) {
                 }
             </ul>
             <div>
-                <button>All</button>
-                <button>Active</button>
-                <button>Completed</button>
+                <button onClick={onClickSetFilterToAll}>All</button>
+                <button onClick={onClickSetFilterToActive}>Active</button>
+                <button onClick={onClickSetFilterToCompleted}>Completed</button>
             </div>
         </div>
     )
