@@ -9,11 +9,10 @@ type TaskType = {
 }
 
 type TodoListType = {
+    id: string
     title: string
     tasks: Array<TaskType>
     removeTaskFromTasks: (id: string) => void
-    filter: FilterType
-    setFilter: (fl: FilterType) => void
     addNewTask: (title: string, newStatus: boolean) => void
     changeStatusTask: (id: string, status: boolean) => void
 }
