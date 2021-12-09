@@ -39,6 +39,13 @@ function App() {
         }
     }
 
+    const removeTodoLists = (idTd: string) => {
+        let findTd = todolists.filter(el => el.id !== idTd)
+        setTodolists([...findTd])
+        delete tasks[idTd]
+        setTasks({...tasks})
+    }
+
     const addNewTask = (id: string, newTitle: string, newStatus: boolean) => {
         let newTask = {id: v1(), title: newTitle, isDone: newStatus}
         tasks[id] = [newTask, ...tasks[id]]
@@ -55,7 +62,6 @@ function App() {
             setTasks({...tasks})
         }
     }
-
 
     return (
         <div>
@@ -80,6 +86,7 @@ function App() {
                             addNewTask={addNewTask}
                             changeStatusTask={changeStatusTask}
                             changeStatusTodoList={changeStatusTodoList}
+                            removeTodoLists={removeTodoLists}
                         />
                     )
                 })

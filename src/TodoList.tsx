@@ -17,6 +17,7 @@ type TodoListType = {
     addNewTask: (id: string, newTitle: string, newStatus: boolean) => void
     changeStatusTask: (idTd: string, id: string, status: boolean)  => void
     changeStatusTodoList: (id: string, fl: FilterType) => void
+    removeTodoLists: (idTd: string) => void
 }
 
 function TodoList(props: TodoListType) {
@@ -38,7 +39,7 @@ function TodoList(props: TodoListType) {
                 setErrorDoubleTask(null)
             }
         } else {
-            setInputError('Enter value')
+            setInputError('Enter the value')
         }
     }
     const onClickSetFilterToAll = () => {
@@ -58,10 +59,15 @@ function TodoList(props: TodoListType) {
     const onClickHandlerChangeNewStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNewStatusValue(e.currentTarget.checked)
     }
+    const onClickHandlerRemoveTodoList = () => {
+        props.removeTodoLists(props.id)
+    }
 
     return (
         <div className={s.styleForTodolist}>
-            <h3>{props.title}</h3>
+            <h3>{props.title}
+            <button className={s.marginToRemoveButton} onClick={onClickHandlerRemoveTodoList}>x</button>
+            </h3>
             <div>
                 <input className={inputError || errorDoubleTask ? s.borderColorForError : ''} value={inputNewValue} onChange={onChangeHandlerInputValue}/>
                 <input className={s.checkBoxForNewInput} type="checkbox" checked={newStatusValue}
@@ -86,7 +92,7 @@ function TodoList(props: TodoListType) {
                             <li key={t.id} className={t.isDone ? s.completedTask : ''}>
                                 <input type="checkbox" checked={t.isDone} onClick={onClickChangeStatusForTask}/>
                                 <span>{t.title}</span>
-                                <button className={s.marginToRemoveTaskButton}
+                                <button className={s.marginToRemoveButton}
                                         onClick={onClickRemoveTaskFromTodolist}>x
                                 </button>
                             </li>
