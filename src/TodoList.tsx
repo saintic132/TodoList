@@ -12,9 +12,11 @@ type TodoListType = {
     id: string
     title: string
     tasks: Array<TaskType>
-    removeTaskFromTasks: (id: string) => void
-    addNewTask: (title: string, newStatus: boolean) => void
-    changeStatusTask: (id: string, status: boolean) => void
+    filter: FilterType
+    removeTaskFromTasks: (idTd: string ,id: string) => void
+    addNewTask: (id: string, newTitle: string, newStatus: boolean) => void
+    changeStatusTask: (idTd: string, id: string, status: boolean)  => void
+    changeStatusTodoList: (id: string, fl: FilterType) => void
 }
 
 function TodoList(props: TodoListType) {
@@ -30,7 +32,7 @@ function TodoList(props: TodoListType) {
             if (doubleTask) {
                 setErrorDoubleTask('Already have this task')
             } else {
-                props.addNewTask(inputNewValue, newStatusValue)
+                props.addNewTask(props.id, inputNewValue, newStatusValue)
                 setInputNewValue('')
                 setNewStatusValue(false)
                 setErrorDoubleTask(null)
@@ -40,13 +42,13 @@ function TodoList(props: TodoListType) {
         }
     }
     const onClickSetFilterToAll = () => {
-        props.setFilter('all')
+        props.changeStatusTodoList(props.id,'all')
     }
     const onClickSetFilterToActive = () => {
-        props.setFilter('active')
+        props.changeStatusTodoList(props.id,'active')
     }
     const onClickSetFilterToCompleted = () => {
-        props.setFilter('completed')
+        props.changeStatusTodoList(props.id,'completed')
     }
     const onChangeHandlerInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputError(null)
@@ -73,10 +75,10 @@ function TodoList(props: TodoListType) {
                     props.tasks.map(t => {
 
                         const onClickRemoveTaskFromTodolist = () => {
-                            props.removeTaskFromTasks(t.id)
+                            props.removeTaskFromTasks(props.id, t.id)
                         }
                         const onClickChangeStatusForTask = (e: React.MouseEvent<HTMLInputElement>) => {
-                            props.changeStatusTask(t.id, e.currentTarget.checked)
+                            props.changeStatusTask(props.id, t.id, e.currentTarget.checked)
                         }
 
 

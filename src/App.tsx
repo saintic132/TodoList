@@ -31,23 +31,28 @@ function App() {
         ]
     });
 
-    const changeStatusTodoList = () => {
-
+    const changeStatusTodoList = (id: string, fl: FilterType) => {
+        let tdFind = todolists.find(el => el.id === id)
+        if (tdFind) {
+            tdFind.filter = fl
+            setTodolists([...todolists])
+        }
     }
 
-    const addNewTask = (newTitle: string, newStatus: boolean) => {
+    const addNewTask = (id: string, newTitle: string, newStatus: boolean) => {
         let newTask = {id: v1(), title: newTitle, isDone: newStatus}
-        setTasks([newTask, ...tasks])
+        tasks[id] = [newTask, ...tasks[id]]
+        setTasks({...tasks})
     }
-    const removeTaskFromTasks = (id: string) => {
-        let task = tasks.filter(el => el.id !== id)
-        setTasks([...task])
+    const removeTaskFromTasks = (idTd: string ,id: string) => {
+        tasks[idTd] = tasks[idTd].filter(el => el.id !== id)
+        setTasks({...tasks})
     }
-    const changeStatusTask = (id: string, status: boolean) => {
-        let task = tasks.find(el => el.id === id)
+    const changeStatusTask = (idTd: string, id: string, status: boolean) => {
+        let task = tasks[idTd].find(el => el.id === id)
         if (task) {
             task.isDone = status
-            setTasks([...tasks])
+            setTasks({...tasks})
         }
     }
 
@@ -57,7 +62,7 @@ function App() {
             {
                 todolists.map(t => {
 
-                    let filteredTasks = tasks
+                    let filteredTasks = tasks[t.id]
                     if (t.filter === 'active') {
                         filteredTasks = filteredTasks.filter(el => !el.isDone)
                     }
@@ -70,15 +75,16 @@ function App() {
                             id={t.id}
                             title={t.title}
                             tasks={filteredTasks}
+                            filter={t.filter}
                             removeTaskFromTasks={removeTaskFromTasks}
                             addNewTask={addNewTask}
                             changeStatusTask={changeStatusTask}
+                            changeStatusTodoList={changeStatusTodoList}
                         />
                     )
                 })
             }
-        </div>
-
+</div>
     );
 }
 

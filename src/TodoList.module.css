@@ -1,5 +1,6 @@
 .styleForTodolist {
     margin: 30px;
+    display: inline-grid;
 }
 
 .marginToRemoveTaskButton {
