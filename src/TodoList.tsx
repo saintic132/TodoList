@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
 import s from './TodoList.module.css'
 import {FilterType} from "./App";
+import {AddItemForm} from "./AddItemForm";
 
-type TaskType = {
+export type TaskType = {
     id: string
     title: string
     isDone: boolean
@@ -22,26 +23,6 @@ type TodoListType = {
 
 function TodoList(props: TodoListType) {
 
-    let [inputNewValue, setInputNewValue] = useState('');
-    let [newStatusValue, setNewStatusValue] = useState<boolean>(false);
-    let [inputError, setInputError] = useState<string | null>('');
-    let [errorDoubleTask, setErrorDoubleTask] = useState<string | null>('');
-
-    const addTask = () => {
-        if (inputNewValue.trim()) {
-            let doubleTask = props.tasks.find(el => el.title === inputNewValue)
-            if (doubleTask) {
-                setErrorDoubleTask('Already have this task')
-            } else {
-                props.addNewTask(props.id, inputNewValue, newStatusValue)
-                setInputNewValue('')
-                setNewStatusValue(false)
-                setErrorDoubleTask(null)
-            }
-        } else {
-            setInputError('Enter the value')
-        }
-    }
     const onClickSetFilterToAll = () => {
         props.changeStatusTodoList(props.id,'all')
     }
@@ -50,14 +31,6 @@ function TodoList(props: TodoListType) {
     }
     const onClickSetFilterToCompleted = () => {
         props.changeStatusTodoList(props.id,'completed')
-    }
-    const onChangeHandlerInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputError(null)
-        setErrorDoubleTask(null)
-        setInputNewValue(e.currentTarget.value)
-    }
-    const onClickHandlerChangeNewStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setNewStatusValue(e.currentTarget.checked)
     }
     const onClickHandlerRemoveTodoList = () => {
         props.removeTodoLists(props.id)
@@ -68,14 +41,14 @@ function TodoList(props: TodoListType) {
             <h3>{props.title}
             <button className={s.marginToRemoveButton} onClick={onClickHandlerRemoveTodoList}>x</button>
             </h3>
-            <div>
-                <input className={inputError || errorDoubleTask ? s.borderColorForError : ''} value={inputNewValue} onChange={onChangeHandlerInputValue}/>
-                <input className={s.checkBoxForNewInput} type="checkbox" checked={newStatusValue}
-                       onChange={onClickHandlerChangeNewStatus}/>
-                <button onClick={addTask}>+</button>
-                {inputError && <div className={s.colorForError}>{inputError}</div>}
-                {errorDoubleTask && <div className={s.colorForError}>{errorDoubleTask}</div>}
-            </div>
+
+            <AddItemForm
+                id={props.id}
+                tasks={props.tasks}
+                addNewTask={props.addNewTask}
+                checkbox
+            />
+
             <ul>
                 {
                     props.tasks.map(t => {
@@ -110,3 +83,4 @@ function TodoList(props: TodoListType) {
 }
 
 export default TodoList
+
