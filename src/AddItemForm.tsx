@@ -2,10 +2,10 @@ import React, {useState} from "react";
 import s from "./TodoList.module.css";
 
 type AddItemFormType = {
-    id: string
     tasks?: Array<string>
-    addNewTask: (title: string, st: boolean) => void
-    checkbox? : boolean
+    todolists?: Array<string>
+    addItem: (title: string, st: boolean) => void
+    checkbox?: boolean
 }
 
 
@@ -14,18 +14,32 @@ export function AddItemForm(props: AddItemFormType) {
     let [inputNewValue, setInputNewValue] = useState('');
     let [newStatusValue, setNewStatusValue] = useState<boolean>(false);
     let [inputError, setInputError] = useState<string | null>('');
-    let [errorDoubleTask, setErrorDoubleTask] = useState<string | null>('');
+    let [errorDouble, setErrorDouble] = useState<string | null>(null);
 
     const addTask = () => {
-        if (inputNewValue.trim() && props.tasks) {
-            let doubleTask = props.tasks.find(el => el === inputNewValue)
-            if (doubleTask) {
-                setErrorDoubleTask('Already have this task')
-            } else {
-                props.addNewTask(inputNewValue, newStatusValue)
-                setInputNewValue('')
-                setNewStatusValue(false)
-                setErrorDoubleTask(null)
+        if (inputNewValue.trim() !== '') {
+            if (props.checkbox) {
+                let doubleTask = props.tasks?.find(el => el === inputNewValue)
+                if (doubleTask) {
+                    setErrorDouble('Already have this task')
+                } else {
+                    props.addItem(inputNewValue.trim(), newStatusValue)
+                    setInputNewValue('')
+                    setNewStatusValue(false)
+                    setErrorDouble(null)
+                    setInputError(null)
+                }
+            }
+            else {
+                let doubleTd = props.todolists?.find(el => el === inputNewValue)
+                if (doubleTd) {
+                    setErrorDouble('Already have this Todolist')
+                } else {
+                    props.addItem(inputNewValue.trim(), newStatusValue)
+                    setInputNewValue('')
+                    setErrorDouble(null)
+                    setInputError(null)
+                }
             }
         } else {
             setInputError('Enter the value')
@@ -34,7 +48,8 @@ export function AddItemForm(props: AddItemFormType) {
 
     const onChangeHandlerInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputError(null)
-        setErrorDoubleTask(null)
+        setErrorDouble(null)
+        setInputNewValue('')
         setInputNewValue(e.currentTarget.value)
     }
     const onClickHandlerChangeNewStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,13 +58,13 @@ export function AddItemForm(props: AddItemFormType) {
 
     return (
         <div>
-            <input className={inputError || errorDoubleTask ? s.borderColorForError : ''} value={inputNewValue}
+            <input className={inputError || errorDouble ? s.borderColorForError : ''} value={inputNewValue}
                    onChange={onChangeHandlerInputValue}/>
             {props.checkbox && <input className={s.checkBoxForNewInput} type="checkbox" checked={newStatusValue}
-                    onChange={onClickHandlerChangeNewStatus}/>}
+                                      onChange={onClickHandlerChangeNewStatus}/>}
             <button onClick={addTask}>+</button>
             {inputError && <div className={s.colorForError}>{inputError}</div>}
-            {errorDoubleTask && <div className={s.colorForError}>{errorDoubleTask}</div>}
+            {errorDouble && <div className={s.colorForError}>{errorDouble}</div>}
         </div>
     )
 }
