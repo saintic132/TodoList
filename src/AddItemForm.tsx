@@ -2,24 +2,24 @@ import React, {useState} from "react";
 import s from "./TodoList.module.css";
 
 type AddItemFormType = {
-    tasks?: Array<string>
-    todolists?: Array<string>
-    addItem: (title: string, st: boolean) => void
+    tasksTitle?: Array<string>
+    todolistsTitle?: Array<string>
     checkbox?: boolean
+    addItem: (title: string, st: boolean) => void
 }
 
 
 export function AddItemForm(props: AddItemFormType) {
-
-    let [inputNewValue, setInputNewValue] = useState('');
+debugger
+    let [inputNewValue, setInputNewValue] = useState<string>('');
     let [newStatusValue, setNewStatusValue] = useState<boolean>(false);
-    let [inputError, setInputError] = useState<string | null>('');
+    let [inputError, setInputError] = useState<string | null>(null);
     let [errorDouble, setErrorDouble] = useState<string | null>(null);
 
     const addTask = () => {
         if (inputNewValue.trim() !== '') {
             if (props.checkbox) {
-                let doubleTask = props.tasks?.find(el => el === inputNewValue)
+                let doubleTask = props.tasksTitle?.find(el => el === inputNewValue)
                 if (doubleTask) {
                     setErrorDouble('Already have this task')
                 } else {
@@ -30,15 +30,15 @@ export function AddItemForm(props: AddItemFormType) {
                     setInputError(null)
                 }
             }
-            else {
-                let doubleTd = props.todolists?.find(el => el === inputNewValue)
-                if (doubleTd) {
-                    setErrorDouble('Already have this Todolist')
-                } else {
-                    props.addItem(inputNewValue.trim(), newStatusValue)
-                    setInputNewValue('')
-                    setErrorDouble(null)
-                    setInputError(null)
+            if (!props.checkbox) {
+                let doubleTd = props.todolistsTitle?.find(el => el === inputNewValue)
+                    if (doubleTd) {
+                        setErrorDouble('Already have this Todolist')
+                    } else {
+                        props.addItem(inputNewValue.trim(), newStatusValue)
+                        setInputNewValue('')
+                        setErrorDouble(null)
+                        setInputError(null)
                 }
             }
         } else {

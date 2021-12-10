@@ -47,7 +47,7 @@ function TodoList(props: TodoListType) {
             </h3>
 
             <AddItemForm
-                tasks={props.tasks.map(el => el.title)}
+                tasksTitle={props.tasks.map(el => el.title)}
                 addItem={addTask}
                 checkbox
             />

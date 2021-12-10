@@ -67,7 +67,7 @@ function App() {
     const addNewTodolist = (title: string) => {
       let todolist: TodolistsType = {id: v1(), title: title, filter: 'all'}
         setTodolists([todolist, ...todolists])
-        setTasks({[todolist.id] : [], ...tasks})
+        setTasks({...tasks, [todolist.id]: []})
     }
 
     return (
@@ -76,7 +76,7 @@ function App() {
             <div className={'styleForTodolist'}>
                 <AddItemForm
                     addItem={addNewTodolist}
-                    todolists={todolists.map(el => el.title)}
+                    todolistsTitle={todolists.map(el => el.title)}
                 />
             </div>
             {
