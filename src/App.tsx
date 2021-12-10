@@ -52,7 +52,7 @@ function App() {
         tasks[id] = [newTask, ...tasks[id]]
         setTasks({...tasks})
     }
-    const removeTaskFromTasks = (idTd: string ,id: string) => {
+    const removeTaskFromTasks = (idTd: string, id: string) => {
         tasks[idTd] = tasks[idTd].filter(el => el.id !== id)
         setTasks({...tasks})
     }
@@ -67,7 +67,10 @@ function App() {
     return (
 
         <div>
-            <AddItemForm  addNewTask={() => {}} id={'ssss'} tasks={tasks[td1]}/>
+            <div className={'styleForTodolist'}>
+                <AddItemForm addNewTask={() => {
+                }} id={'ssss'}/>
+            </div>
             {
                 todolists.map(t => {
 
@@ -94,7 +97,7 @@ function App() {
                     )
                 })
             }
-</div>
+        </div>
     );
 }
 

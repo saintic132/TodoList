@@ -14,23 +14,27 @@ type TodoListType = {
     title: string
     tasks: Array<TaskType>
     filter: FilterType
-    removeTaskFromTasks: (idTd: string ,id: string) => void
+    removeTaskFromTasks: (idTd: string, id: string) => void
     addNewTask: (id: string, newTitle: string, newStatus: boolean) => void
-    changeStatusTask: (idTd: string, id: string, status: boolean)  => void
+    changeStatusTask: (idTd: string, id: string, status: boolean) => void
     changeStatusTodoList: (id: string, fl: FilterType) => void
     removeTodoLists: (idTd: string) => void
 }
 
 function TodoList(props: TodoListType) {
 
+    const addTask = (title: string, st: boolean) => {
+        props.addNewTask(props.id, title, st)
+    }
+
     const onClickSetFilterToAll = () => {
-        props.changeStatusTodoList(props.id,'all')
+        props.changeStatusTodoList(props.id, 'all')
     }
     const onClickSetFilterToActive = () => {
-        props.changeStatusTodoList(props.id,'active')
+        props.changeStatusTodoList(props.id, 'active')
     }
     const onClickSetFilterToCompleted = () => {
-        props.changeStatusTodoList(props.id,'completed')
+        props.changeStatusTodoList(props.id, 'completed')
     }
     const onClickHandlerRemoveTodoList = () => {
         props.removeTodoLists(props.id)
@@ -39,13 +43,13 @@ function TodoList(props: TodoListType) {
     return (
         <div className={s.styleForTodolist}>
             <h3>{props.title}
-            <button className={s.marginToRemoveButton} onClick={onClickHandlerRemoveTodoList}>x</button>
+                <button className={s.marginToRemoveButton} onClick={onClickHandlerRemoveTodoList}>x</button>
             </h3>
 
             <AddItemForm
                 id={props.id}
-                tasks={props.tasks}
-                addNewTask={props.addNewTask}
+                tasks={props.tasks.map(el => el.title)}
+                addNewTask={addTask}
                 checkbox
             />
 
@@ -74,9 +78,14 @@ function TodoList(props: TodoListType) {
                 }
             </ul>
             <div>
-                <button className={props.filter=== 'all' ? s.filterForTasks : ''} onClick={onClickSetFilterToAll}>All</button>
-                <button className={props.filter=== 'active' ? s.filterForTasks : ''} onClick={onClickSetFilterToActive}>Active</button>
-                <button className={props.filter=== 'completed' ? s.filterForTasks : ''} onClick={onClickSetFilterToCompleted}>Completed</button>
+                <button className={props.filter === 'all' ? s.filterForTasks : ''} onClick={onClickSetFilterToAll}>All
+                </button>
+                <button className={props.filter === 'active' ? s.filterForTasks : ''}
+                        onClick={onClickSetFilterToActive}>Active
+                </button>
+                <button className={props.filter === 'completed' ? s.filterForTasks : ''}
+                        onClick={onClickSetFilterToCompleted}>Completed
+                </button>
             </div>
         </div>
     )

@@ -1,11 +1,10 @@
 import React, {useState} from "react";
 import s from "./TodoList.module.css";
-import {TaskType} from "./TodoList";
 
 type AddItemFormType = {
     id: string
-    tasks: Array<TaskType>
-    addNewTask: (id: string, newTitle: string, newStatus: boolean) => void
+    tasks?: Array<string>
+    addNewTask: (title: string, st: boolean) => void
     checkbox? : boolean
 }
 
@@ -18,12 +17,12 @@ export function AddItemForm(props: AddItemFormType) {
     let [errorDoubleTask, setErrorDoubleTask] = useState<string | null>('');
 
     const addTask = () => {
-        if (inputNewValue.trim()) {
-            let doubleTask = props.tasks.find(el => el.title === inputNewValue)
+        if (inputNewValue.trim() && props.tasks) {
+            let doubleTask = props.tasks.find(el => el === inputNewValue)
             if (doubleTask) {
                 setErrorDoubleTask('Already have this task')
             } else {
-                props.addNewTask(props.id, inputNewValue, newStatusValue)
+                props.addNewTask(inputNewValue, newStatusValue)
                 setInputNewValue('')
                 setNewStatusValue(false)
                 setErrorDoubleTask(null)
