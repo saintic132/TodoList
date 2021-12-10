@@ -26,6 +26,7 @@ function App() {
     ]);
 
     const addNewTodolist = (title: string) => {
+        debugger
         let todolist: TodolistsType = {id: v1(), title: title, filter: 'all'}
         setTodolists([todolist, ...todolists])
         setTasks({...tasks, [todolist.id]: []})
@@ -74,7 +75,7 @@ function App() {
         }
     }
 
-    const changeTitleForTask = (idTd: string, value: string, id: string) => {
+    const changeTitleForTask = (idTd: string, value: string, id?: string) => {
         if (id !== "undefined") {
             let td = tasks[idTd].find(el => el.id === id)
             if (td) {

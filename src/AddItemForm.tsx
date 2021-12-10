@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import s from "./TodoList.module.css";
 
 type AddItemFormType = {
@@ -10,35 +10,36 @@ type AddItemFormType = {
 
 
 export function AddItemForm(props: AddItemFormType) {
-debugger
+    debugger
     let [inputNewValue, setInputNewValue] = useState<string>('');
     let [newStatusValue, setNewStatusValue] = useState<boolean>(false);
     let [inputError, setInputError] = useState<string | null>(null);
     let [errorDouble, setErrorDouble] = useState<string | null>(null);
 
     const addTask = () => {
+        debugger
         if (inputNewValue.trim() !== '') {
             if (props.checkbox) {
                 let doubleTask = props.tasksTitle?.find(el => el === inputNewValue)
                 if (doubleTask) {
                     setErrorDouble('Already have this task')
                 } else {
-                    props.addItem(inputNewValue.trim(), newStatusValue)
+                    props.addItem(inputNewValue.trim(), true)
                     setInputNewValue('')
                     setNewStatusValue(false)
                     setErrorDouble(null)
                     setInputError(null)
                 }
             }
-            if (!props.checkbox) {
+            if (!props.checkbox)  {
                 let doubleTd = props.todolistsTitle?.find(el => el === inputNewValue)
                     if (doubleTd) {
                         setErrorDouble('Already have this Todolist')
                     } else {
-                        props.addItem(inputNewValue.trim(), newStatusValue)
-                        setInputNewValue('')
                         setErrorDouble(null)
                         setInputError(null)
+                        props.addItem(inputNewValue.trim(), true)
+                        setInputNewValue('')
                 }
             }
         } else {

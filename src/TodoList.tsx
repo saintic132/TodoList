@@ -20,7 +20,7 @@ type TodoListType = {
     changeStatusTask: (idTd: string, id: string, status: boolean) => void
     changeStatusTodoList: (id: string, fl: FilterType) => void
     removeTodoLists: (idTd: string) => void
-    changeTitleForTask: (idTd: string, value: string, id: string) => void
+    changeTitleForTask: (idTd: string, value: string, id?: string) => void
 }
 
 function TodoList(props: TodoListType) {
@@ -43,7 +43,7 @@ function TodoList(props: TodoListType) {
     }
 
     const onChangeHandlerForTdTitle = (value: string) => {
-        props.changeTitleForTask(props.id, value, 'undefined')
+        props.changeTitleForTask(props.id, value)
     }
 
     return (
