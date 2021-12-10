@@ -25,16 +25,11 @@ function App() {
         {id: td2, title: 'What to buy', filter: 'all'}
     ]);
 
-    let [tasks, setTasks] = useState<TasksStateType>({
-        [td1]: [{id: v1(), title: 'HTML', isDone: true},
-            {id: v1(), title: 'CSS', isDone: true},
-            {id: v1(), title: 'React', isDone: false}
-        ],
-        [td2]: [{id: v1(), title: 'Bread', isDone: true},
-            {id: v1(), title: 'Milk', isDone: true},
-            {id: v1(), title: 'Books', isDone: false}
-        ]
-    });
+    const addNewTodolist = (title: string) => {
+        let todolist: TodolistsType = {id: v1(), title: title, filter: 'all'}
+        setTodolists([todolist, ...todolists])
+        setTasks({...tasks, [todolist.id]: []})
+    }
 
     const changeStatusTodoList = (id: string, fl: FilterType) => {
         let tdFind = todolists.find(el => el.id === id)
@@ -50,6 +45,17 @@ function App() {
         delete tasks[idTd]
         setTasks({...tasks})
     }
+
+    let [tasks, setTasks] = useState<TasksStateType>({
+        [td1]: [{id: v1(), title: 'HTML', isDone: true},
+            {id: v1(), title: 'CSS', isDone: true},
+            {id: v1(), title: 'React', isDone: false}
+        ],
+        [td2]: [{id: v1(), title: 'Bread', isDone: true},
+            {id: v1(), title: 'Milk', isDone: true},
+            {id: v1(), title: 'Books', isDone: false}
+        ]
+    });
 
     const addNewTask = (id: string, newTitle: string, newStatus: boolean) => {
         let newTask = {id: v1(), title: newTitle, isDone: newStatus}
@@ -68,10 +74,20 @@ function App() {
         }
     }
 
-    const addNewTodolist = (title: string) => {
-      let todolist: TodolistsType = {id: v1(), title: title, filter: 'all'}
-        setTodolists([todolist, ...todolists])
-        setTasks({...tasks, [todolist.id]: []})
+    const changeTitleForTask = (idTd: string, value: string, id: string) => {
+        if (id !== "undefined") {
+            let td = tasks[idTd].find(el => el.id === id)
+            if (td) {
+                td.title = value
+                setTasks({...tasks})
+            }
+        } if (id === "undefined") {
+            let td = todolists.find(el => el.id === idTd)
+            if (td) {
+                td.title = value
+                setTasks({...tasks})
+            }
+        }
     }
 
     return (
@@ -105,6 +121,7 @@ function App() {
                             changeStatusTask={changeStatusTask}
                             changeStatusTodoList={changeStatusTodoList}
                             removeTodoLists={removeTodoLists}
+                            changeTitleForTask={changeTitleForTask}
                         />
                     )
                 })

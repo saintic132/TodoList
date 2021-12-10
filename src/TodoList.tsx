@@ -2,6 +2,7 @@ import React from "react";
 import s from './TodoList.module.css'
 import {FilterType} from "./App";
 import {AddItemForm} from "./AddItemForm";
+import EditableSpan from "./EditableSpan";
 
 export type TaskType = {
     id: string
@@ -19,6 +20,7 @@ type TodoListType = {
     changeStatusTask: (idTd: string, id: string, status: boolean) => void
     changeStatusTodoList: (id: string, fl: FilterType) => void
     removeTodoLists: (idTd: string) => void
+    changeTitleForTask: (idTd: string, value: string, id: string) => void
 }
 
 function TodoList(props: TodoListType) {
@@ -40,9 +42,17 @@ function TodoList(props: TodoListType) {
         props.removeTodoLists(props.id)
     }
 
+    const onChangeHandlerForTdTitle = (value: string) => {
+        props.changeTitleForTask(props.id, value, 'undefined')
+    }
+
     return (
         <div className={s.styleForTodolist}>
-            <h3>{props.title}
+            <h3>
+                <EditableSpan
+                    title={props.title}
+                    onChangeHandlerForTaskTitle={onChangeHandlerForTdTitle}
+                />
                 <button className={s.marginToRemoveButton} onClick={onClickHandlerRemoveTodoList}>x</button>
             </h3>
 
@@ -63,11 +73,17 @@ function TodoList(props: TodoListType) {
                             props.changeStatusTask(props.id, t.id, e.currentTarget.checked)
                         }
 
+                        const onChangeHandlerForTaskTitle = (value: string) => {
+                            props.changeTitleForTask(props.id, value, t.id)
+                        }
 
                         return (
                             <li key={t.id} className={t.isDone ? s.completedTask : ''}>
                                 <input type="checkbox" checked={t.isDone} onClick={onClickChangeStatusForTask}/>
-                                <span>{t.title}</span>
+                                <EditableSpan
+                                title={t.title}
+                                onChangeHandlerForTaskTitle={onChangeHandlerForTaskTitle}
+                                />
                                 <button className={s.marginToRemoveButton}
                                         onClick={onClickRemoveTaskFromTodolist}>x
                                 </button>
