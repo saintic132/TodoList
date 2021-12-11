@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import s from "./TodoList.module.css";
 
 type AddItemFormType = {
@@ -24,7 +24,7 @@ export function AddItemForm(props: AddItemFormType) {
                 if (doubleTask) {
                     setErrorDouble('Already have this task')
                 } else {
-                    props.addItem(inputNewValue.trim(), true)
+                    props.addItem(inputNewValue.trim(), newStatusValue)
                     setInputNewValue('')
                     setNewStatusValue(false)
                     setErrorDouble(null)
