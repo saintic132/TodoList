@@ -67,7 +67,13 @@ export function AddItemForm(props: AddItemFormType) {
                 onChange={onClickHandlerChangeNewStatus}
                 inputProps={{ 'aria-label': 'controlled' }}
             />}
-            <Button onClick={addTask} variant="outlined" color="primary">+</Button>
+            <Button
+                style={{
+                    transform: "scale(0.75)",
+                }}
+                onClick={addTask}
+                variant="contained"
+                color="primary">+</Button>
             {inputError && <div className={s.colorForError}>{inputError}</div>}
             {errorDouble && <div className={s.colorForError}>{errorDouble}</div>}
         </div>

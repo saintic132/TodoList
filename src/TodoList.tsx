@@ -3,7 +3,7 @@ import s from './TodoList.module.css'
 import {FilterType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
-import {Checkbox, IconButton} from "@material-ui/core";
+import {Button, Checkbox, IconButton} from "@material-ui/core";
 import {Delete} from '@material-ui/icons';
 
 export type TaskType = {
@@ -113,14 +113,21 @@ function TodoList(props: TodoListType) {
                 }
             </ul>
             <div>
-                <button className={props.filter === 'all' ? s.filterForTasks : ''} onClick={onClickSetFilterToAll}>All
-                </button>
-                <button className={props.filter === 'active' ? s.filterForTasks : ''}
-                        onClick={onClickSetFilterToActive}>Active
-                </button>
-                <button className={props.filter === 'completed' ? s.filterForTasks : ''}
-                        onClick={onClickSetFilterToCompleted}>Completed
-                </button>
+                <Button
+                    className={props.filter === 'all' ? s.filterForTasks : ''}
+                    onClick={onClickSetFilterToAll}
+                >All
+                </Button>
+                <Button
+                    className={props.filter === 'active' ? s.filterForTasks : ''}
+                    onClick={onClickSetFilterToActive}
+                >Active
+                </Button>
+                <Button
+                    className={props.filter === 'completed' ? s.filterForTasks : ''}
+                    onClick={onClickSetFilterToCompleted}
+                >Completed
+                </Button>
             </div>
         </div>
     )
