@@ -114,17 +114,31 @@ function TodoList(props: TodoListType) {
             </ul>
             <div>
                 <Button
-                    className={props.filter === 'all' ? s.filterForTasks : ''}
+                    style={{
+                        transform: "scale(1)",
+                        fontSize: '10px'
+                    }}
+                    variant={props.filter === 'all' ? 'contained' : 'text'}
                     onClick={onClickSetFilterToAll}
                 >All
                 </Button>
                 <Button
-                    className={props.filter === 'active' ? s.filterForTasks : ''}
+                    style={{
+                        transform: "scale(1)",
+                        fontSize: '10px',
+                    }}
+                    color={"primary"}
+                    variant={props.filter === 'active' ? 'contained' : 'text'}
                     onClick={onClickSetFilterToActive}
                 >Active
                 </Button>
                 <Button
-                    className={props.filter === 'completed' ? s.filterForTasks : ''}
+                    style={{
+                        transform: "scale(1)",
+                        fontSize: '10px',
+                    }}
+                    color={"secondary"}
+                    variant={props.filter === 'completed' ? 'contained' : 'text'}
                     onClick={onClickSetFilterToCompleted}
                 >Completed
                 </Button>
