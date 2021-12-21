@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import s from "./TodoList.module.css";
-import {Button, Checkbox} from "@material-ui/core";
+import {Button, Checkbox, TextField} from "@material-ui/core";
 
 type AddItemFormType = {
     tasksTitle?: Array<string>
@@ -17,7 +17,6 @@ export function AddItemForm(props: AddItemFormType) {
     let [errorDouble, setErrorDouble] = useState<string | null>(null);
 
     const addTask = () => {
-        debugger
         if (inputNewValue.trim() !== '') {
             if (props.checkbox) {
                 let doubleTask = props.tasksTitle?.find(el => el === inputNewValue)
@@ -57,25 +56,36 @@ export function AddItemForm(props: AddItemFormType) {
         setNewStatusValue(e.currentTarget.checked)
     }
 
+    const onBlurInputElement = () => {
+        setInputError(null)
+    }
+
     return (
         <div>
-            <input className={inputError || errorDouble ? s.borderColorForError : ''} value={inputNewValue}
-                   onChange={onChangeHandlerInputValue}/>
+            <TextField
+                id="outlined-basic"
+                label={props.checkbox ? 'Task' : 'TodoList'}
+                variant="outlined"
+                value={inputNewValue}
+                onChange={onChangeHandlerInputValue}
+                error={!!inputError || !!errorDouble}
+                helperText={inputError || errorDouble}
+                onBlur={onBlurInputElement}
+            />
             {props.checkbox && <Checkbox
                 className={s.checkBoxForNewInput}
                 checked={newStatusValue}
                 onChange={onClickHandlerChangeNewStatus}
-                inputProps={{ 'aria-label': 'controlled' }}
+                inputProps={{'aria-label': 'controlled'}}
             />}
             <Button
                 style={{
                     transform: "scale(0.75)",
+                    maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'
                 }}
                 onClick={addTask}
                 variant="contained"
                 color="primary">+</Button>
-            {inputError && <div className={s.colorForError}>{inputError}</div>}
-            {errorDouble && <div className={s.colorForError}>{errorDouble}</div>}
         </div>
     )
 }
