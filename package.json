@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://saintic132.github.io/TodoList/",
   "dependencies": {
+    "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",

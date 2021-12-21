@@ -3,6 +3,8 @@ import './App.css';
 import {v1} from "uuid";
 import TodoList, {TaskType} from "./TodoList";
 import {AddItemForm} from "./AddItemForm";
+import {AppBar, IconButton, Toolbar, Typography} from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
 
 export type FilterType = 'all' | 'active' | 'completed'
 type TodolistsType = {
@@ -74,7 +76,6 @@ function App() {
             setTasks({...tasks})
         }
     }
-
     const changeTitleForTask = (idTd: string, value: string, id?: string) => {
         if (id !== "undefined") {
             let td = tasks[idTd].find(el => el.id === id)
@@ -94,6 +95,16 @@ function App() {
     return (
 
         <div>
+            <AppBar position="static">
+                <Toolbar variant="dense">
+                    <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h6" color="inherit" component="div">
+                        TodoList
+                    </Typography>
+                </Toolbar>
+            </AppBar>
             <div className={'styleForTodolist'}>
                 <AddItemForm
                     addItem={addNewTodolist}
