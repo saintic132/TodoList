@@ -88,6 +88,9 @@ function TodoList(props: TodoListType) {
                         return (
                             <li key={t.id} className={t.isDone ? s.completedTask : ''}>
                                 <Checkbox
+                                    style={{
+                                        transform: "scale(0.75)",
+                                    }}
                                     checked={t.isDone}
                                     onChange={onClickChangeStatusForTask}
                                     inputProps={{'aria-label': 'controlled'}}
@@ -98,9 +101,6 @@ function TodoList(props: TodoListType) {
                                 />
                                 <IconButton aria-label="delete" size="small">
                                     <Delete
-                                        style={{
-                                            transform: "scale(1)",
-                                        }}
                                         className={s.marginToRemoveButton}
                                         fontSize="inherit"
                                         onClick={onClickRemoveTaskFromTodolist}
