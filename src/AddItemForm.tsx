@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import s from "./TodoList.module.css";
+import {Button, Checkbox} from "@material-ui/core";
 
 type AddItemFormType = {
     tasksTitle?: Array<string>
@@ -7,7 +8,6 @@ type AddItemFormType = {
     checkbox?: boolean
     addItem: (title: string, st: boolean) => void
 }
-
 
 export function AddItemForm(props: AddItemFormType) {
     debugger
@@ -31,15 +31,15 @@ export function AddItemForm(props: AddItemFormType) {
                     setInputError(null)
                 }
             }
-            if (!props.checkbox)  {
+            if (!props.checkbox) {
                 let doubleTd = props.todolistsTitle?.find(el => el === inputNewValue)
-                    if (doubleTd) {
-                        setErrorDouble('Already have this Todolist')
-                    } else {
-                        setErrorDouble(null)
-                        setInputError(null)
-                        props.addItem(inputNewValue.trim(), true)
-                        setInputNewValue('')
+                if (doubleTd) {
+                    setErrorDouble('Already have this Todolist')
+                } else {
+                    setErrorDouble(null)
+                    setInputError(null)
+                    props.addItem(inputNewValue.trim(), true)
+                    setInputNewValue('')
                 }
             }
         } else {
@@ -61,9 +61,13 @@ export function AddItemForm(props: AddItemFormType) {
         <div>
             <input className={inputError || errorDouble ? s.borderColorForError : ''} value={inputNewValue}
                    onChange={onChangeHandlerInputValue}/>
-            {props.checkbox && <input className={s.checkBoxForNewInput} type="checkbox" checked={newStatusValue}
-                                      onChange={onClickHandlerChangeNewStatus}/>}
-            <button onClick={addTask}>+</button>
+            {props.checkbox && <Checkbox
+                className={s.checkBoxForNewInput}
+                checked={newStatusValue}
+                onChange={onClickHandlerChangeNewStatus}
+                inputProps={{ 'aria-label': 'controlled' }}
+            />}
+            <Button onClick={addTask} variant="outlined" color="primary">+</Button>
             {inputError && <div className={s.colorForError}>{inputError}</div>}
             {errorDouble && <div className={s.colorForError}>{errorDouble}</div>}
         </div>

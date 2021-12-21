@@ -1,8 +1,10 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import s from './TodoList.module.css'
 import {FilterType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
+import {Checkbox, IconButton} from "@material-ui/core";
+import {Delete} from '@material-ui/icons';
 
 export type TaskType = {
     id: string
@@ -53,7 +55,13 @@ function TodoList(props: TodoListType) {
                     title={props.title}
                     onChangeHandlerForTaskTitle={onChangeHandlerForTdTitle}
                 />
-                <button className={s.marginToRemoveButton} onClick={onClickHandlerRemoveTodoList}>x</button>
+                <IconButton aria-label="delete" size="small">
+                    <Delete
+                        className={s.marginToRemoveButton}
+                        fontSize="inherit"
+                        onClick={onClickHandlerRemoveTodoList}
+                    />
+                </IconButton>
             </h3>
 
             <AddItemForm
@@ -69,7 +77,7 @@ function TodoList(props: TodoListType) {
                         const onClickRemoveTaskFromTodolist = () => {
                             props.removeTaskFromTasks(props.id, t.id)
                         }
-                        const onClickChangeStatusForTask = (e: React.MouseEvent<HTMLInputElement>) => {
+                        const onClickChangeStatusForTask = (e: ChangeEvent<HTMLInputElement>) => {
                             props.changeStatusTask(props.id, t.id, e.currentTarget.checked)
                         }
 
@@ -79,14 +87,26 @@ function TodoList(props: TodoListType) {
 
                         return (
                             <li key={t.id} className={t.isDone ? s.completedTask : ''}>
-                                <input type="checkbox" checked={t.isDone} onClick={onClickChangeStatusForTask}/>
-                                <EditableSpan
-                                title={t.title}
-                                onChangeHandlerForTaskTitle={onChangeHandlerForTaskTitle}
+                                <Checkbox
+                                    checked={t.isDone}
+                                    onChange={onClickChangeStatusForTask}
+                                    inputProps={{'aria-label': 'controlled'}}
                                 />
-                                <button className={s.marginToRemoveButton}
-                                        onClick={onClickRemoveTaskFromTodolist}>x
-                                </button>
+                                <EditableSpan
+                                    title={t.title}
+                                    onChangeHandlerForTaskTitle={onChangeHandlerForTaskTitle}
+                                />
+                                <IconButton aria-label="delete" size="small">
+                                    <Delete
+                                        style={{
+                                            transform: "scale(1)",
+                                        }}
+                                        className={s.marginToRemoveButton}
+                                        fontSize="inherit"
+                                        onClick={onClickRemoveTaskFromTodolist}
+                                    />
+                                </IconButton>
+
                             </li>
                         )
                     })
