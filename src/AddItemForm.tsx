@@ -24,6 +24,7 @@ export function AddItemForm(props: AddItemFormType) {
                 let doubleTask = props.tasksTitle?.find(el => el === inputNewValue)
                 if (doubleTask) {
                     setErrorDouble('Already have this task')
+                    clickAutoFocus.current?.focus()
                 } else {
                     props.addItem(inputNewValue.trim(), newStatusValue)
                     setInputNewValue('')
@@ -36,6 +37,7 @@ export function AddItemForm(props: AddItemFormType) {
                 let doubleTd = props.todolistsTitle?.find(el => el === inputNewValue)
                 if (doubleTd) {
                     setErrorDouble('Already have this Todolist')
+                    clickAutoFocus.current?.focus()
                 } else {
                     setErrorDouble(null)
                     setInputError(null)
