@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import s from "./TodoList.module.css";
 import {Button, Checkbox, TextField} from "@material-ui/core";
 
@@ -10,13 +10,15 @@ type AddItemFormType = {
 }
 
 export function AddItemForm(props: AddItemFormType) {
-    debugger
     let [inputNewValue, setInputNewValue] = useState<string>('');
     let [newStatusValue, setNewStatusValue] = useState<boolean>(false);
     let [inputError, setInputError] = useState<string | null>(null);
     let [errorDouble, setErrorDouble] = useState<string | null>(null);
 
+    let clickAutoFocus = useRef<any>(null)
+
     const addTask = () => {
+        debugger
         if (inputNewValue.trim() !== '') {
             if (props.checkbox) {
                 let doubleTask = props.tasksTitle?.find(el => el === inputNewValue)
@@ -43,6 +45,7 @@ export function AddItemForm(props: AddItemFormType) {
             }
         } else {
             setInputError('Enter the value')
+            clickAutoFocus.current?.focus()
         }
     }
 
@@ -63,6 +66,7 @@ export function AddItemForm(props: AddItemFormType) {
     return (
         <div>
             <TextField
+                inputRef={clickAutoFocus}
                 id="outlined-basic"
                 label={props.checkbox ? 'Task' : 'TodoList'}
                 variant="outlined"

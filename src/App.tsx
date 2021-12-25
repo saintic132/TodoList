@@ -6,6 +6,8 @@ import {AddItemForm} from "./AddItemForm";
 import {AppBar, Container, Grid, IconButton, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 
+
+
 export type FilterType = 'all' | 'active' | 'completed'
 type TodolistsType = {
     id: string
@@ -94,7 +96,6 @@ function App() {
     }
 
     return (
-
         <div>
             <AppBar position="static">
                 <Toolbar variant="dense">
