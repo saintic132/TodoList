@@ -9,7 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 
 export type FilterType = 'all' | 'active' | 'completed'
-type TodolistsType = {
+export type TodolistsType = {
     id: string
     title: string
     filter: FilterType
