@@ -30,7 +30,6 @@ function App() {
     ]);
 
     const addNewTodolist = (title: string) => {
-        debugger
         let todolist: TodolistsType = {id: v1(), title: title, filter: 'all'}
         setTodolists([todolist, ...todolists])
         setTasks({...tasks, [todolist.id]: []})
