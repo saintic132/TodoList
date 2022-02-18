@@ -14,9 +14,15 @@ export const todolistsReducer = (state: Array<TodolistsType>, action: ActionType
         case 'ADD-TODOLIST':
             return [...state, {id: v1(), title: action.title, filter: "all"}]
         case 'CHANGE-TODOLIST-TITLE':
+            let findTodoList = state.find(el => el.id === action.id)
+            if (findTodoList) {
+                findTodoList.title = action.title
+            }
+            return [...state]
+        case 'CHANGE-TODOLIST-FILTER':
             let findTask = state.find(el => el.id === action.id)
             if (findTask) {
-                 findTask.title = action.title
+                findTask.filter = action.filter
             }
             return [...state]
         default:
