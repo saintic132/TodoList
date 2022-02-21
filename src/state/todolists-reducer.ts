@@ -1,4 +1,4 @@
-import {TodolistsType} from "../App";
+import {FilterType, TodolistsType} from "../App";
 import {v1} from "uuid";
 
 type RemoveTodolistActionType = {
@@ -20,7 +20,7 @@ type ChangeTodolistTitleActionType = {
 type ChangeTodolistFilterActionType = {
     type: 'CHANGE-TODOLIST-FILTER'
     id: string
-    filter: string
+    filter: FilterType
 }
 
 type ActionsType = RemoveTodolistActionType | AddTodolistActionType | ChangeTodolistTitleActionType | ChangeTodolistFilterActionType
