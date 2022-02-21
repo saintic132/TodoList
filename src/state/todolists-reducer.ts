@@ -11,6 +11,12 @@ type AddTodolistActionType = {
     title: string
 }
 
+type ChangeTodolistTitleActionType = {
+    type: 'CHANGE-TODOLIST-TITLE'
+    id: string
+    title: string
+}
+
 
 export const todolistsReducer = (state: Array<TodolistsType>, action: ActionType): Array<TodolistsType> => {
     switch (action.type) {
