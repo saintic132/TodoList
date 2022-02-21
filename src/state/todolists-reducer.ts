@@ -1,9 +1,14 @@
 import {TodolistsType} from "../App";
 import {v1} from "uuid";
 
-type ActionType = {
-    type: string
-    [key: string]: any
+type RemoveTodolistActionType = {
+    type: 'REMOVE-TODOLIST'
+    id: string
+}
+
+type AddTodolistActionType = {
+    type: 'ADD-TODOLIST'
+    title: string
 }
 
 
