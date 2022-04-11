@@ -6,7 +6,13 @@ type SecondActionType = ReturnType<typeof addTaskAC>
 type ThirdActionType = ReturnType<typeof changeTaskStatusAC>
 type FourActionType = ReturnType<typeof changeTitleAC>
 
-type ActionsType = FirstActionType | SecondActionType | ThirdActionType | FourActionType | AddTodolistActionType | RemoveTodolistActionType
+type ActionsType =
+    FirstActionType
+    | SecondActionType
+    | ThirdActionType
+    | FourActionType
+    | AddTodolistActionType
+    | RemoveTodolistActionType
 
 
 export const taskReducer = (state: StartTaskType, action: ActionsType): StartTaskType => {
@@ -19,7 +25,7 @@ export const taskReducer = (state: StartTaskType, action: ActionsType): StartTas
         case 'ADD-NEW-TASK-FOR-TODOLIST':
             return {
                 ...state,
-                [action.tdId]: [{id: '0', title: action.newTask, isDone: false}, ...state[action.tdId]]
+                [action.tdId]: [{id: '0', title: action.newTask, isDone: action.status}, ...state[action.tdId]]
             }
         case 'CHANGE-TASK-STATUS':
             return {
@@ -42,7 +48,7 @@ export const taskReducer = (state: StartTaskType, action: ActionsType): StartTas
         case 'ADD-TODOLIST':
             return {
                 ...state,
-                [action.id] : []
+                [action.id]: []
             }
         case 'REMOVE-TODOLIST':
             let newTasks = {...state}
@@ -59,10 +65,11 @@ export const removeTaskFromTodolistAC = (taskId: string, tdId: string) => ({
     tdId
 } as const)
 
-export const addTaskAC = (newTask: string, tdId: string) => ({
+export const addTaskAC = (newTask: string, tdId: string, status: boolean) => ({
     type: 'ADD-NEW-TASK-FOR-TODOLIST',
     newTask,
-    tdId
+    tdId,
+    status
 } as const)
 
 export const changeTaskStatusAC = (taskId: string, status: boolean, tdId: string) => ({

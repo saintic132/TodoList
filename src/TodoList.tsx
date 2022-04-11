@@ -22,7 +22,7 @@ type TodoListType = {
     changeStatusTask: (idTd: string, id: string, status: boolean) => void
     changeStatusTodoList: (id: string, fl: FilterType) => void
     removeTodoLists: (idTd: string) => void
-    changeTitleForTask: (idTd: string, value: string, id?: string) => void
+    changeTitleForTask: (idTd: string, value: string, id?: string | undefined) => void
 }
 
 function TodoList(props: TodoListType) {
