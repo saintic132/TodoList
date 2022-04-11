@@ -18,7 +18,6 @@ export function AddItemForm(props: AddItemFormType) {
     let clickAutoFocus = useRef<any>(null)
 
     const addTask = () => {
-        debugger
         if (inputNewValue.trim() !== '') {
             if (props.checkbox) {
                 let doubleTask = props.tasksTitle?.find(el => el === inputNewValue)

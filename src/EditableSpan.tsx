@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, KeyboardEvent} from "react";
 import {TextField} from "@material-ui/core";
 
 type EditableSpanType = {
@@ -19,6 +19,12 @@ function EditableSpan(props: EditableSpanType) {
         setActiveModeForEdit(false)
         props.onChangeHandlerForTaskTitle(title)
     }
+    const onChangeHandlerValueByKeyPress = (e: KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter') {
+            setActiveModeForEdit(false)
+            props.onChangeHandlerForTaskTitle(title)
+        }
+    }
     const onChangeHandlerValue = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
@@ -29,6 +35,7 @@ function EditableSpan(props: EditableSpanType) {
                 id="filled-basic"
                 value={title}
                 onBlur={disableActivateModeHandler}
+                onKeyPress={onChangeHandlerValueByKeyPress}
                 autoFocus
                 onChange={onChangeHandlerValue}
             /> :

@@ -1,6 +1,5 @@
-import {TodolistsType} from "../App";
 import {StartTaskType} from "./task-reducer.test";
-import {AddTodolistAC, RemoveTodolistAC, todolistsReducer} from "./todolists-reducer";
+import {AddTodolistAC, RemoveTodolistAC, todolistsReducer, TodolistsType} from "./todolists-reducer";
 import {taskReducer} from "./task-reducer";
 
 

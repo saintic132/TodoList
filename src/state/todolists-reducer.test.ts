@@ -3,10 +3,10 @@ import {
     RemoveTodolistAC,
     AddTodolistAC,
     ChangeTodolistTitleAC,
-    ChangeTodolistFilterAC
+    ChangeTodolistFilterAC, TodolistsType
 } from './todolists-reducer';
 import {v1} from 'uuid';
-import {FilterType, TodolistsType} from "../App";
+import {FilterType} from "../AppWithRedux";
 
 let todolistId1 = v1();
 let todolistId2 = v1();
