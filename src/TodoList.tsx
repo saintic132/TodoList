@@ -42,7 +42,6 @@ function TodoList(props: TodoListType) {
         filteredTasks = filteredTasks.filter(el => el.isDone)
     }
 
-
     const addTask = (title: string, st: boolean) => {
         dispatch(addTaskAC(title, todolistId, st))
     }
