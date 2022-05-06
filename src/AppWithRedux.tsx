@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useMemo} from 'react';
 import './App.css';
 import TodoList from "./TodoList";
 import {AddItemForm} from "./AddItemForm";
@@ -21,10 +21,14 @@ function AppWithRedux() {
     const todolists = useSelector<AppRootStateType, TodolistsType[]>(state => state.todolists)
     const dispatch = useDispatch<Dispatch<ActionsRootType>>()
 
-    const addNewTodolist = (title: string) => {
+    const addNewTodolist = useCallback((title: string) => {
         let action = AddTodolistAC(title)
         dispatch(action)
-    }
+    }, [dispatch])
+
+    let filteredTodolistsForError = useMemo(() => {
+        return todolists.map(el => el.title)
+    }, [todolists])
 
     return (
         <div>
@@ -43,7 +47,7 @@ function AppWithRedux() {
                 >
                     <AddItemForm
                         addItem={addNewTodolist}
-                        todolistsTitle={todolists.map(el => el.title)}
+                        todolistsTitle={filteredTodolistsForError}
                     />
                 </Grid>
                 <Grid container spacing={2}

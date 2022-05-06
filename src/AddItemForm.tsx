@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {memo, useCallback, useRef, useState} from "react";
 import s from "./TodoList.module.css";
 import {Button, Checkbox, TextField} from "@material-ui/core";
 
@@ -9,7 +9,7 @@ type AddItemFormType = {
     addItem: (title: string, st: boolean) => void
 }
 
-export function AddItemForm(props: AddItemFormType) {
+export const AddItemForm = memo((props: AddItemFormType) => {
     let [inputNewValue, setInputNewValue] = useState<string>('');
     let [newStatusValue, setNewStatusValue] = useState<boolean>(false);
     let [inputError, setInputError] = useState<string | null>(null);
@@ -17,7 +17,7 @@ export function AddItemForm(props: AddItemFormType) {
 
     let clickAutoFocus = useRef<any>(null)
 
-    const addTask = () => {
+    const addTask = useCallback(() => {
         if (inputNewValue.trim() !== '') {
             if (props.checkbox) {
                 let doubleTask = props.tasksTitle?.find(el => el === inputNewValue)
@@ -48,20 +48,25 @@ export function AddItemForm(props: AddItemFormType) {
             setInputError('Enter the value')
             clickAutoFocus.current?.focus()
         }
-    }
+    }, [props.checkbox, inputNewValue, props.tasksTitle, props.todolistsTitle, props.addItem])
 
     const onChangeHandlerInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputError(null)
-        setErrorDouble(null)
-        setInputNewValue('')
-        setInputNewValue(e.currentTarget.value)
+        if (!inputError || !errorDouble) {
+            setInputError(null)
+            setErrorDouble(null)
+            setInputNewValue('')
+            setInputNewValue(e.currentTarget.value)
+        }
+
     }
     const onClickHandlerChangeNewStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNewStatusValue(e.currentTarget.checked)
     }
 
     const onBlurInputElement = () => {
-        setInputError(null)
+        if (!inputError) {
+            setInputError(null)
+        }
     }
 
     return (
@@ -77,12 +82,14 @@ export function AddItemForm(props: AddItemFormType) {
                 helperText={inputError || errorDouble}
                 onBlur={onBlurInputElement}
             />
-            {props.checkbox && <Checkbox
-                className={s.checkBoxForNewInput}
-                checked={newStatusValue}
-                onChange={onClickHandlerChangeNewStatus}
-                inputProps={{'aria-label': 'controlled'}}
-            />}
+            {
+                props.checkbox && <Checkbox
+                    className={s.checkBoxForNewInput}
+                    checked={newStatusValue}
+                    onChange={onClickHandlerChangeNewStatus}
+                    inputProps={{'aria-label': 'controlled'}}
+                />
+            }
             <Button
                 style={{
                     transform: "scale(0.75)",
@@ -93,4 +100,4 @@ export function AddItemForm(props: AddItemFormType) {
                 color="primary">+</Button>
         </div>
     )
-}
+})

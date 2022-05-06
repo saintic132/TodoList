@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useCallback, useMemo} from "react";
 import s from './TodoList.module.css'
 import {AddItemForm} from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
@@ -42,9 +42,9 @@ function TodoList(props: TodoListType) {
         filteredTasks = filteredTasks.filter(el => el.isDone)
     }
 
-    const addTask = (title: string, st: boolean) => {
+    const addTask = useCallback((title: string, st: boolean) => {
         dispatch(addTaskAC(title, todolistId, st))
-    }
+    }, [dispatch, todolistId])
 
     const onClickSetFilterToAll = () => {
         dispatch(ChangeTodolistFilterAC(todolistId, 'all'))
@@ -61,6 +61,10 @@ function TodoList(props: TodoListType) {
     const onChangeHandlerForTdTitle = (value: string) => {
         dispatch(ChangeTodolistTitleAC(todolistId, value))
     }
+
+    let filteredTaskForError = useMemo(() => {
+        return tasks.map(el => el.title)
+    }, [tasks])
 
     return (
         <div className={s.styleForTodolist}>
@@ -79,7 +83,7 @@ function TodoList(props: TodoListType) {
             </h3>
 
             <AddItemForm
-                tasksTitle={tasks.map(el => el.title)}
+                tasksTitle={filteredTaskForError}
                 addItem={addTask}
                 checkbox
             />
