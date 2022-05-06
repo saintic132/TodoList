@@ -46,21 +46,21 @@ function TodoList(props: TodoListType) {
         dispatch(addTaskAC(title, todolistId, st))
     }, [dispatch, todolistId])
 
-    const onClickSetFilterToAll = () => {
+    const onClickSetFilterToAll = useCallback(() => {
         dispatch(ChangeTodolistFilterAC(todolistId, 'all'))
-    }
-    const onClickSetFilterToActive = () => {
+    }, [dispatch, todolistId])
+    const onClickSetFilterToActive = useCallback(() => {
         dispatch(ChangeTodolistFilterAC(todolistId, 'active'))
-    }
-    const onClickSetFilterToCompleted = () => {
+    }, [dispatch, todolistId])
+    const onClickSetFilterToCompleted = useCallback(() => {
         dispatch(ChangeTodolistFilterAC(todolistId, 'completed'))
-    }
-    const onClickHandlerRemoveTodoList = () => {
+    }, [dispatch, todolistId])
+    const onClickHandlerRemoveTodoList = useCallback(() => {
         dispatch(RemoveTodolistAC(todolistId))
-    }
-    const onChangeHandlerForTdTitle = (value: string) => {
+    }, [dispatch, todolistId])
+    const onChangeHandlerForTdTitle = useCallback((value: string) => {
         dispatch(ChangeTodolistTitleAC(todolistId, value))
-    }
+    }, [dispatch, todolistId])
 
     let filteredTaskForError = useMemo(() => {
         return tasks.map(el => el.title)

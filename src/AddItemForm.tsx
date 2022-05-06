@@ -48,7 +48,7 @@ export const AddItemForm = memo((props: AddItemFormType) => {
             setInputError('Enter the value')
             clickAutoFocus.current?.focus()
         }
-    }, [props.checkbox, inputNewValue, props.tasksTitle, props.todolistsTitle, props.addItem])
+    }, [props.checkbox, inputNewValue, props.tasksTitle, props.todolistsTitle, props.addItem, newStatusValue])
 
     const onChangeHandlerInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!inputError || !errorDouble) {
