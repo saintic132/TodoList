@@ -1,8 +1,8 @@
-import React, {ChangeEvent, useCallback} from 'react';
+import React, {ChangeEvent, memo, useCallback} from 'react';
 import {changeTaskStatusAC, changeTitleAC, removeTaskFromTodolistAC} from "./state/task-reducer";
 import s from "./TodoList.module.css";
 import {Checkbox, IconButton} from "@material-ui/core";
-import EditableSpan from "./EditableSpan";
+import {EditableSpan} from "./EditableSpan";
 import {Delete} from "@material-ui/icons";
 import {TaskType} from "./TodoList";
 import {useDispatch} from "react-redux";
@@ -12,7 +12,9 @@ type TaskPropsType = {
     todolistId: string
 };
 
-export const Task = (props: TaskPropsType) => {
+export const Task = memo((props: TaskPropsType) => {
+
+    console.log('Task render')
 
     let dispatch = useDispatch()
 
@@ -56,4 +58,4 @@ export const Task = (props: TaskPropsType) => {
             </li>
         </div>
     )
-}
+})

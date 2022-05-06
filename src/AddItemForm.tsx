@@ -10,6 +10,9 @@ type AddItemFormType = {
 }
 
 export const AddItemForm = memo((props: AddItemFormType) => {
+
+    console.log('Add item form called')
+
     let [inputNewValue, setInputNewValue] = useState<string>('');
     let [newStatusValue, setNewStatusValue] = useState<boolean>(false);
     let [inputError, setInputError] = useState<string | null>(null);

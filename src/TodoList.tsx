@@ -1,18 +1,17 @@
-import React, {useCallback, useMemo} from "react";
+import React, {memo, useCallback, useMemo} from "react";
 import s from './TodoList.module.css'
 import {AddItemForm} from "./AddItemForm";
-import EditableSpan from "./EditableSpan";
+import {EditableSpan} from "./EditableSpan";
 import {Button, IconButton} from "@material-ui/core";
 import {Delete} from '@material-ui/icons';
 import {useDispatch, useSelector} from "react-redux";
-import {ActionsRootType, AppRootStateType} from "./state/store";
+import {AppRootStateType} from "./state/store";
 import {
     ChangeTodolistFilterAC,
     ChangeTodolistTitleAC,
     RemoveTodolistAC,
     TodolistsType
 } from "./state/todolists-reducer";
-import {Dispatch} from "redux";
 import {addTaskAC} from "./state/task-reducer";
 import {Task} from "./Task";
 
@@ -26,12 +25,14 @@ type TodoListType = {
     id: string
 }
 
-function TodoList(props: TodoListType) {
+export const TodoList = memo((props: TodoListType) => {
+
+    console.log('TodoList called')
 
     const tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[props.id])
     const todolists = useSelector<AppRootStateType, TodolistsType>(state => state.todolists.filter(td => td.id === props.id)[0])
 
-    const dispatch = useDispatch<Dispatch<ActionsRootType>>()
+    const dispatch = useDispatch()
 
     const todolistId = todolists.id
 
@@ -50,15 +51,19 @@ function TodoList(props: TodoListType) {
     const onClickSetFilterToAll = useCallback(() => {
         dispatch(ChangeTodolistFilterAC(todolistId, 'all'))
     }, [dispatch, todolistId])
+
     const onClickSetFilterToActive = useCallback(() => {
         dispatch(ChangeTodolistFilterAC(todolistId, 'active'))
     }, [dispatch, todolistId])
+
     const onClickSetFilterToCompleted = useCallback(() => {
         dispatch(ChangeTodolistFilterAC(todolistId, 'completed'))
     }, [dispatch, todolistId])
+
     const onClickHandlerRemoveTodoList = useCallback(() => {
         dispatch(RemoveTodolistAC(todolistId))
     }, [dispatch, todolistId])
+
     const onChangeHandlerForTdTitle = useCallback((value: string) => {
         dispatch(ChangeTodolistTitleAC(todolistId, value))
     }, [dispatch, todolistId])
@@ -94,6 +99,7 @@ function TodoList(props: TodoListType) {
                     filteredTasks.map(t => {
                         return (
                             <Task
+                                key={t.id}
                                 task={t}
                                 todolistId={todolistId}
                             />
@@ -134,7 +140,5 @@ function TodoList(props: TodoListType) {
             </div>
         </div>
     )
-}
-
-export default TodoList
+})
 

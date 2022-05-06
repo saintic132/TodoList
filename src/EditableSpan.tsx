@@ -1,4 +1,4 @@
-import React, {useState, KeyboardEvent, memo} from "react";
+import React, {useState, KeyboardEvent, memo, useCallback} from "react";
 import {TextField} from "@material-ui/core";
 
 type EditableSpanType = {
@@ -6,28 +6,34 @@ type EditableSpanType = {
     onChangeHandlerForTaskTitle: (value: string) => void
 }
 
-const EditableSpan = memo((props: EditableSpanType) => {
+export const EditableSpan = memo((props: EditableSpanType) => {
+
+    console.log('EditableSpan form called')
+
 
     let [activeModeForEdit, setActiveModeForEdit] = useState<boolean>(false);
     let [title, setTitle] = useState('');
 
-    const activateModeHandler = () => {
+    const activateModeHandler = useCallback(() => {
         setActiveModeForEdit(true)
         setTitle(props.title)
-    }
-    const disableActivateModeHandler = () => {
+    }, [props.title])
+
+    const disableActivateModeHandler = useCallback(() => {
         setActiveModeForEdit(false)
         props.onChangeHandlerForTaskTitle(title)
-    }
-    const onChangeHandlerValueByKeyPress = (e: KeyboardEvent<HTMLDivElement>) => {
+    }, [props.onChangeHandlerForTaskTitle, title])
+
+    const onChangeHandlerValueByKeyPress = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Enter') {
             setActiveModeForEdit(false)
             props.onChangeHandlerForTaskTitle(title)
         }
-    }
-    const onChangeHandlerValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    }, [props.onChangeHandlerForTaskTitle, title])
+
+    const onChangeHandlerValue = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
-    }
+    }, [title])
 
     return (
         activeModeForEdit ?
@@ -42,5 +48,3 @@ const EditableSpan = memo((props: EditableSpanType) => {
             <span onDoubleClick={activateModeHandler}>{props.title}</span>
     )
 })
-
-export default EditableSpan
